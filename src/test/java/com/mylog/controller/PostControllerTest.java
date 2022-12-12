@@ -11,6 +11,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest
@@ -23,20 +24,28 @@ class PostControllerTest {
     @DisplayName("/posts 요청시 Hello World를 출력한다.")
     void test() throws Exception {
 
-        // 글 제목
-        // 글 내용
-        // 사용자
-            // id
-            // user
-            // level
-
         // expected
         mockMvc.perform(MockMvcRequestBuilders.post("/posts")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"title\": \"제목입니다.\", \"content\": \"내용입니다.\"}")
                 )
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("Hello World"))
+                .andExpect(MockMvcResultMatchers.content().string("{}"))
+                .andDo(print());
+
+    }
+
+    @Test
+    @DisplayName("/posts 요청시 Hello World를 출력한다.")
+    void test2() throws Exception {
+
+        // expected
+        mockMvc.perform(MockMvcRequestBuilders.post("/posts")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"title\": null, \"content\": \"내용입니다.\"}")
+                )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title").value("타이틀을 입력해주세요."))
                 .andDo(print());
 
     }
