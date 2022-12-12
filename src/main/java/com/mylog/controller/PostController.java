@@ -20,22 +20,7 @@ import java.util.Map;
 public class PostController {
 
     @PostMapping("/posts")
-    public Map<String, String> post(@RequestBody @Valid PostCreate params, BindingResult result) {
-
-        if(result.hasErrors()) {
-            List<FieldError> fieldErrors = result.getFieldErrors();
-            FieldError firstFieldError = fieldErrors.get(0);
-            String fieldName = firstFieldError.getField();
-            String errormessgae = firstFieldError.getDefaultMessage();
-
-            Map<String, String> error = new HashMap<>();
-            error.put(fieldName, errormessgae);
-            return error;
-        }
-
-        log.info("params={}", params.toString());
-
-
+    public Map<String, String> post(@RequestBody @Valid PostCreate params) {
         return Map.of();
     }
 }
