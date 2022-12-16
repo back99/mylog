@@ -2,6 +2,7 @@ package com.mylog.controller;
 
 import com.mylog.domain.Post;
 import com.mylog.request.PostCreate;
+import com.mylog.response.PostResponse;
 import com.mylog.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,8 +30,8 @@ public class PostController {
     }
 
     @GetMapping("posts/{postId}")
-    public Post get(@PathVariable(name = "postId") Long id) {
-        Post post = postService.get(id);
-        return post;
+    public PostResponse get(@PathVariable(name = "postId") Long id) {
+        PostResponse postResponse = postService.get(id);
+        return postResponse;
     }
 }
